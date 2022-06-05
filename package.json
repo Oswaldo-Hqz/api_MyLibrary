@@ -6,7 +6,8 @@
   "scripts": {
     "build": "babel src --out-dir build",
     "dev": "nodemon src/index.js --exec babel-node",
-    "start": "node build/index.js"
+    "start": "babel-node src/index.js",
+    "heroku-postbuild": "npm install"
   },
   "keywords": [],
   "author": "Oswaldo Henriqz 🤙🏽",
@@ -26,5 +27,6 @@
     "@babel/node": "^7.17.10",
     "@babel/preset-env": "^7.18.2",
     "nodemon": "^2.0.16"
-  }
+  },
+  "heroku-run-build-script": true
 }
