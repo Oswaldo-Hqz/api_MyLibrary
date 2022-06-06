@@ -1,4 +1,6 @@
 import Roles from "../models/roles";
+import Users from '../models/user'
+import bcrypt from "bcryptjs";
 
 export const createRoles = async () => {
     try {
@@ -18,5 +20,21 @@ export const createRoles = async () => {
         console.log(values);
     } catch (error) {
         console.error(error);
+    }
+};
+
+export const createAdmin = async () => {
+    const user = await Users.findOne({ email: "admin@admin.com" });
+    const roles = await Roles.find({ name: { $in: ["admin"] } });
+  
+    if (!user) {
+      await Users.create({
+        firstName: "Admin",
+        lastName: "Admin",
+        email: "admin@admin.com",
+        password: await bcrypt.hash("admin123$", 10),
+        roles: roles.map((role) => role._id),
+      });
+      console.log('Admin User Created!')
     }
 };
